@@ -16,6 +16,8 @@ class Cell
     end
   end
 
-
+  def place_ship(ship)
+    @ship = ship
+  end
 
 end
