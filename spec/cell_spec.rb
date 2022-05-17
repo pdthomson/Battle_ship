@@ -19,4 +19,9 @@ RSpec.describe Cell do
   it "can check if a cell is empty" do
     expect(@cell.empty?).to eq(true)
   end
+
+  it "can place the ship" do
+    @cell.place_ship(@cruiser)
+    expect(@cell.empty?).to eq(false)
+  end
 end
