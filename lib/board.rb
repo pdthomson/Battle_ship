@@ -25,4 +25,12 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.has_key?(coordinate)
   end
+
+  def valid_placement?(ship, coordinates)
+    if  ship.length != coordinates.count
+      false
+    else
+      true 
+    end
+  end
 end
