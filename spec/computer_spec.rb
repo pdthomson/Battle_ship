@@ -18,4 +18,9 @@ RSpec.describe(Computer) do
     expect(@computer.letters).to(be_an(String))
     expect(@computer.letters.length).to(eq(1))
   end
+
+  it("can give a random number to guess") do
+    expect(@computer.numbers).to(be_an(String))
+    expect(@computer.numbers.length).to(eq(1))
+  end
 end
