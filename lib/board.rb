@@ -1,3 +1,5 @@
+require './lib/ship'
+require './lib/cell'
 class Board
   attr_reader :cells
 
@@ -30,7 +32,6 @@ class Board
     letters = coordinates.map { |letter| letter[0] }
     numbers = coordinates.map { |number| number[1] }
     occupied = coordinates.map { |piece| @cells[piece].empty? }
-
     if ship.health != coordinates.count
       false
     elsif occupied.include?(false) == true
@@ -50,5 +51,13 @@ class Board
 
   def place(ship, coordinates)
     coordinates.map { |key| @cells[key].place_ship(ship) }
+  end
+
+  def board_render(debug_ship = false)
+    "1 2 3 4 \n" +
+    "A #{@cells["A1"].render(debug_ship)} #{@cells["A2"].render(debug_ship)} #{@cells["A3"].render(debug_ship)} #{@cells["A4"].render(debug_ship)} \n" +
+    "B #{@cells["B1"].render(debug_ship)} #{@cells["B2"].render(debug_ship)} #{@cells["B3"].render(debug_ship)} #{@cells["B4"].render(debug_ship)} \n" +
+    "C #{@cells["C1"].render(debug_ship)} #{@cells["C2"].render(debug_ship)} #{@cells["C3"].render(debug_ship)} #{@cells["C4"].render(debug_ship)} \n" +
+    "D #{@cells["D1"].render(debug_ship)} #{@cells["D2"].render(debug_ship)} #{@cells["D3"].render(debug_ship)} #{@cells["D4"].render(debug_ship)} \n"
   end
 end
