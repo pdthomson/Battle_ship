@@ -25,4 +25,25 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.has_key?(coordinate)
   end
+
+  def valid_placement?(ship, coordinates)
+    letters = coordinates.map{|letter| letter[0]}
+    numbers = coordinates.map{|number| number[1]}
+    occupied = coordinates.map{|piece| @cells[piece].empty?}
+    if  ship.length != coordinates.count
+      false
+    elsif occupied.include?(false) == true
+      false
+    elsif letters.uniq.count == 1 && (numbers.min..numbers.max).to_a == numbers
+      true
+    elsif (letters.min..letters.max).to_a == letters && numbers.uniq.count == 1
+      true
+    elsif (letters.min..letters.max).to_a == letters && (numbers.min..numbers.max).to_a == numbers
+      false
+    elsif letters.uniq.length == 1 && numbers.uniq.length == numbers
+      false
+    else
+      false
+    end
+  end
 end
