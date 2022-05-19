@@ -27,10 +27,11 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    letters = coordinates.map{|letter| letter[0]}
-    numbers = coordinates.map{|number| number[1]}
-    occupied = coordinates.map{|piece| @cells[piece].empty?}
-    if  ship.length != coordinates.count
+    letters = coordinates.map { |letter| letter[0] }
+    numbers = coordinates.map { |number| number[1] }
+    occupied = coordinates.map { |piece| @cells[piece].empty? }
+
+    if ship.health != coordinates.count
       false
     elsif occupied.include?(false) == true
       false
@@ -45,5 +46,9 @@ class Board
     else
       false
     end
+  end
+
+  def place(ship, coordinates)
+    coordinates.map { |key| @cells[key].place_ship(ship) }
   end
 end
