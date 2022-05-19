@@ -9,4 +9,9 @@ class Computer
     letters = ["A", "B", "C", "D"]
     letters.sample
   end
+
+  def numbers
+    numbers = ["1", "2", "3", "4"]
+    numbers.sample
+  end
 end
