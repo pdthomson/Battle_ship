@@ -30,4 +30,19 @@ RSpec.describe(Computer) do
     expect(@computer.computer_coordinates.length).to(eq(2))
     expect(@computer.computer_coordinates).to(be_an(String))
   end
+
+  it "can validate coordinates" do
+    expect(@computer.computer_board.valid_coordinate?("A1")).to eq(true)
+    expect(@computer.computer_board.valid_coordinate?("Z1")).to eq(false)
+  end
+
+  it "can place the submarine for the computer" do
+    @computer.place_submarine
+    expect(@board.cells.empty?).to eq(false)
+  end
+
+  it "can place the cruiser for the computer" do
+    @computer.place_cruiser
+    expect(@board.cells.empty?).to eq(false)
+  end
 end
