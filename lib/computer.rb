@@ -36,4 +36,18 @@ class Computer
       end
     end
   end
+
+  def place_cruiser
+    loop do
+      cruiser_coordinates = []
+      @cruiser.length.times do
+        cruiser_coordinates << computer_coordinates
+      end
+      cruiser_coordinates.sort
+      if @computer_board.valid_placement?(@cruiser, cruiser_coordinates) == true
+        @computer_board.place(@cruiser, cruiser_coordinates)
+        break
+      end
+    end
+  end
 end
