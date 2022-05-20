@@ -14,4 +14,8 @@ class Computer
     numbers = ["1", "2", "3", "4"]
     numbers.sample
   end
+
+  def computer_coordinates
+    letters + numbers
+  end
 end
