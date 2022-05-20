@@ -23,4 +23,11 @@ RSpec.describe(Computer) do
     expect(@computer.numbers).to(be_an(String))
     expect(@computer.numbers.length).to(eq(1))
   end
+
+  it("can combine the random letter and number to give coordinate") do
+    expect(@computer.letters.length).to(eq(1))
+    expect(@computer.numbers.length).to(eq(1))
+    expect(@computer.computer_coordinates.length).to(eq(2))
+    expect(@computer.computer_coordinates).to(be_an(String))
+  end
 end
