@@ -1,7 +1,7 @@
 require "./lib/board"
 require "./lib/cell"
 require "./lib/ship"
-
+require './lib/computer'
 class Turn
   attr_reader :player_board, :computer_board, :submarine, :cruiser, :comp
 
@@ -40,10 +40,11 @@ class Turn
       else
         @computer_board.cells[player_input].fired_upon?
         puts("You have already fired upon #{player_input} NO TURN FOR YOU")
+        break
       end
-
-      break
     end
+    winner
+    computer_shot
   end
 
   def computer_shot
@@ -64,9 +65,36 @@ class Turn
       @player_board.cells[computer_pick].render == "M"
       puts("My shot #{computer_pick} has missed")
     end
+    winner
+    player_shot
+  end
+
+  def player_sunk?
+    @cruiser.sunk? && @sumbarine.sunk?
+  end
+
+  def computer_sunk?
+    @comp.cruiser.sunk? && @comp.submarine.sunk?
+  end
+
+  def winner
+    player_sunk? || computer_sunk?
+  end
+
+  def turns
+    until winner
+      display_board
+      player_shot
+      if winner && player_sunk?
+        puts "You win this time"
+      else
+        winner && computer_sunk?
+        puts "I win again, No surprise"
+      end
+    end
   end
 end
 
 board = Board.new
 turn = Turn.new
-turn.display_board
+turn.player_shot
