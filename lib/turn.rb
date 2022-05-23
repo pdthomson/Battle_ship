@@ -3,13 +3,15 @@ require "./lib/cell"
 require "./lib/ship"
 
 class Turn
-  attr_reader :player_board, :computer_board, :submarine, :cruiser
+  attr_reader :player_board, :computer_board, :submarine, :cruiser, :comp
 
   def initialize
     @player_board = Board.new
     @computer_board = Board.new
     @submarine = Ship.new("Submarine", 2)
     @cruiser = Ship.new("Crusier", 3)
+    @comp = Computer.new(@computer_board)
+    @computer_shot_array = []
   end
 
   def display_board
@@ -41,6 +43,26 @@ class Turn
       end
 
       break
+    end
+  end
+
+  def computer_shot
+    computer_pick = @comp.computer_coordinates
+    @computer_shot_array << computer_pick
+
+    if @computer_shot_array.include?(computer_pick)
+      computer_pick
+    else
+      @player_board.cells[computer_pick].fire_upon
+    end
+
+    if @player_board.cells[computer_pick].render == "X"
+      puts("I sunk your ship")
+    elsif @player_board.cells[computer_pick].render == "H"
+      puts("My shot #{computer_pick} has hit a ship")
+    else
+      @player_board.cells[computer_pick].render == "M"
+      puts("My shot #{computer_pick} has missed")
     end
   end
 end
