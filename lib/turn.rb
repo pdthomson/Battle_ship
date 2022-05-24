@@ -19,16 +19,16 @@ class Turn
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit"
     user_input = gets.chomp.downcase
-    until user_input == "p"
       if user_input == "p"
         display_board
       elsif user_input == "q"
         puts "This counts as a win for the PC's MWUAHAHA"
         exit
+      else
+        puts " I SAID PS OR QS"
+        main_menu
       end
-    end
   end
-
 
   def display_board
     puts("============COMPUTER BOARD============")
@@ -39,7 +39,7 @@ class Turn
 
   def player_shot
   puts "Enter the coordinate of your shot:"
-  loop do
+    loop do
     player_input = gets.chomp.upcase
       if @computer_board.valid_coordinate?(player_input) == false
         p "Please enter a valid coordinate"
@@ -48,6 +48,7 @@ class Turn
         p "You have already fired on #{player_input} NO TURN FOR YOU, jk try again"
       elsif @computer_board.valid_coordinate?(player_input) == true
          @computer_board.cells[player_input].fire_upon
+         winner
          player_result(player_input)
       end
     end
@@ -65,13 +66,13 @@ class Turn
     computer_shot
   end
 
-
   def computer_shot
     loop do
       computer_pick = @comp.computer_coordinates
       if @player_board.cells[computer_pick].fired_upon? == true
         redo
       elsif @player_board.cells[computer_pick].fire_upon
+        winner
         computer_result(computer_pick)
       end
     end
@@ -94,23 +95,25 @@ class Turn
   end
 
   def computer_sunk?
-    @comp.cruiser.sunk? && @comp.submarine.sunk?
+    @comp.computer_cruiser.sunk? && @comp.computer_submarine.sunk?
   end
 
-  def winner?
-    player_sunk? || computer_sunk?
+  def winner
+    if computer_sunk?
+      display_board
+      puts "You win this time"
+      exit
+    elsif  player_sunk?
+      display_board
+      puts "I win again, No surprise"
+      exit
+    end
   end
 
   def turns
-    until winner? == true
+    loop do
       display_board
       player_shot
-      if winner && player_sunk?
-        puts "You win this time"
-      else
-        winner && computer_sunk?
-        puts "I win again, No surprise"
-      end
     end
   end
 
@@ -124,9 +127,9 @@ class Turn
 end
 
 turn = Turn.new
-# turn.display_board
-# turn.player_shot
-# turn.main_menu
-# turn.computer_shot
-# turn.computer_sunk
+# # turn.display_board
+# # turn.player_shot
+# # turn.main_menu
+# # turn.computer_shot
+# # turn.computer_sunk
 turn.start
