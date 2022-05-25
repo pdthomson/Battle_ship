@@ -1,8 +1,3 @@
-require "./lib/board"
-require "./lib/cell"
-require "./lib/ship"
-require './lib/computer'
-require './lib/player'
 class Turn
   attr_reader :player_board, :computer_board, :submarine, :cruiser, :comp
 
@@ -19,15 +14,15 @@ class Turn
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit"
     user_input = gets.chomp.downcase
-      if user_input == "p"
-        display_board
-      elsif user_input == "q"
-        puts "This counts as a win for the PC's MWUAHAHA"
-        exit
-      else
-        puts " I SAID PS OR QS"
-        main_menu
-      end
+    if user_input == "p"
+      display_board
+    elsif user_input == "q"
+      puts "This counts as a win for the PC's MWUAHAHA"
+      exit
+    else
+      puts " I SAID PS OR QS"
+      main_menu
+    end
   end
 
   def display_board
@@ -44,7 +39,7 @@ class Turn
       if @computer_board.valid_coordinate?(player_input) == false
         p "Please enter a valid coordinate"
         redo
-      elsif @computer_board.cells[player_input].fired_upon? #&& @computer_board.cells.ship != nil
+      elsif @computer_board.cells[player_input].fired_upon?
         p "You have already fired on #{player_input} NO TURN FOR YOU, jk try again"
       elsif @computer_board.valid_coordinate?(player_input) == true
          @computer_board.cells[player_input].fire_upon
@@ -57,7 +52,7 @@ class Turn
   def player_result(player_input)
     if @computer_board.cells[player_input].render == 'X'
       p "You have sunk this ship"
-    elsif @computer_board.cells[player_input].render == 'H'#@computer_board.cells[player_input].ship != nil
+    elsif @computer_board.cells[player_input].render == 'H'
       p "Your shot on #{player_input} hit a ship"
     elsif @computer_board.cells[player_input].render == 'M'
       p "Your shot on #{player_input} has missed"
@@ -86,8 +81,8 @@ class Turn
     else @player_board.cells[computer_pick].render == 'M'
       puts "My shot on #{computer_pick} has missed"
     end
-    player_shot
     display_board
+    player_shot
   end
 
   def player_sunk?
@@ -102,11 +97,11 @@ class Turn
     if computer_sunk?
       display_board
       puts "You win this time"
-      exit
+      start
     elsif  player_sunk?
       display_board
       puts "I win again, No surprise"
-      exit
+      start
     end
   end
 
@@ -123,13 +118,6 @@ class Turn
     @comp.place_submarine
     @player.player_setup
     turns
+    start
   end
 end
-
-turn = Turn.new
-# # turn.display_board
-# # turn.player_shot
-# # turn.main_menu
-# # turn.computer_shot
-# # turn.computer_sunk
-turn.start
