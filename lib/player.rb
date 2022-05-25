@@ -1,7 +1,3 @@
-# require "./lib/board"
-# require "./lib/cell"
-# require "./lib/ship"
-# require "./lib/computer"
 class Player
   attr_reader :player_board, :computer_board
 
