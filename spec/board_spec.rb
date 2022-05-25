@@ -61,21 +61,9 @@ RSpec.describe(Board) do
     expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to(eq(false))
   end
 
-  it "can render a full board" do
+  it("can render a full board") do
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    expect(@board.board_render).to eq(
-      "1 2 3 4 \n" +
-      "A . . . . \n" +
-      "B . . . . \n" +
-      "C . . . . \n" +
-      "D . . . . \n"
-    )
-    expect(@board.board_render(true)).to eq(
-      "1 2 3 4 \n" +
-      "A S S S . \n" +
-      "B . . . . \n" +
-      "C . . . . \n" +
-      "D . . . . \n"
-    )
+    expect(@board.board_render).to(eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+    expect(@board.board_render(true)).to(eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
   end
 end
